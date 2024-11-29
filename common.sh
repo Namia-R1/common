@@ -322,6 +322,7 @@ cat >>"feeds.conf.default" <<-EOF
 src-git danshui1 https://github.com/Namia-R1/openwrt-package.git;${SOURCE}
 src-git helloworld https://github.com/fw876/helloworld.git
 src-git passwall3 https://github.com/xiaorouji/openwrt-passwall-packages;main
+src-git 5gmodem https://github.com/Namia-R1/5G-Modem-Support;main
 EOF
 ./scripts/feeds update -a
 
