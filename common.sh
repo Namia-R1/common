@@ -115,7 +115,7 @@ chmod -R +x ${start_path} && source ${start_path}
 
 case "${SOURCE_CODE}" in
 COOLSNOWWOLF)
-  export REPO_URL="https://github.com/coolsnowwolf/lede"
+  export REPO_URL="https://github.com/Namia-R1/lede"
   export SOURCE="Lede"
   export SOURCE_OWNER="Lean's"
   export LUCI_EDITION="18.06"
