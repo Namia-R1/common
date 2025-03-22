@@ -48,6 +48,21 @@ endef
 " >>  package/kernel/linux/modules/netsupport.mk
 fi
 
+if [[ `grep -c "KernelPackage/nf-tproxy" package/kernel/linux/modules/netfilter.mk` -eq '0' ]]; then
+echo "
+define KernelPackage/nf-tproxy
+  SUBMENU:=\$(NF_MENU)
+  TITLE:=Netfilter tproxy support
+  KCONFIG:= \$(KCONFIG_NF_TPROXY)
+  FILES:=\$(foreach mod,\$(NF_TPROXY-m),\$(LINUX_DIR)/net/\$(mod).ko)
+  AUTOLOAD:=\$(call AutoProbe,\$(notdir \$(NF_TPROXY-m)))
+endef
+
+\$(eval \$(call KernelPackage,nf-tproxy))
+
+" >>  package/kernel/linux/modules/netfilter.mk
+fi
+
 if [[ `grep -c "KernelPackage/nft-tproxy" package/kernel/linux/modules/netfilter.mk` -eq '0' ]]; then
 echo "
 define KernelPackage/nft-tproxy
@@ -61,6 +76,11 @@ endef
 
 \$(eval \$(call KernelPackage,nft-tproxy))
 
+" >>  package/kernel/linux/modules/netfilter.mk
+fi
+
+if [[ `grep -c "KernelPackage/nft-compat" package/kernel/linux/modules/netfilter.mk` -eq '0' ]]; then
+echo "
 define KernelPackage/nft-compat
   SUBMENU:=\$(NF_MENU)
   TITLE:=Netfilter nf_tables compat support
@@ -75,7 +95,7 @@ endef
 fi
 
 if [[ `grep -c "nft_tproxy" include/netfilter.mk` -eq '0' ]]; then
-  sed -i '378i\$(eval \$(if \$(NF_KMOD),\$(call nf_add,NFT_TPROXY,CONFIG_NFT_TPROXY, \$(P_XT)nft_tproxy),))' include/netfilter.mk
+  sed -i '344i\$(eval \$(if \$(NF_KMOD),\$(call nf_add,NFT_TPROXY,CONFIG_NFT_TPROXY, \$(P_XT)nft_tproxy),))' include/netfilter.mk
 fi
 
 iproute1="package/network/utils/iproute2/Makefile"
