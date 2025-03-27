@@ -1,5 +1,5 @@
 #!/bin/bash
-# https://github.com/281677160/build-actions
+# https://github.com/Namia-R1/build-actions
 # common Module by 28677160
 # matrix.target=${FOLDER_NAME}
 
@@ -19,7 +19,7 @@ function TIME() {
 
 function settings_variable() {
 cd ${GITHUB_WORKSPACE}
-bash <(curl -fsSL https://raw.githubusercontent.com/281677160/common/main/custom/first.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/Namia-R1/common/main/custom/first.sh)
 }
 
 function Diy_variable() {
@@ -269,7 +269,7 @@ fi
 
 
 function Diy_update() {
-bash <(curl -fsSL https://raw.githubusercontent.com/281677160/common/main/custom/ubuntu.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/Namia-R1/common/main/custom/ubuntu.sh)
 if [[ $? -ne 0 ]];then
   TIME r "依赖安装失败，请检测网络后再次尝试!"
   exit 1
@@ -288,7 +288,7 @@ curl -fsSL "${FEEDS_CONF}" -o "${HOME_PATH}/feeds.conf.default"
 curl -fsSL "${BASE_FILES}" -o "${GENE_PATH}"
 curl -fsSL "${UPGRADE_KEEP}" -o "${KEEPD_PATH}"
 curl -fsSL "${TARGET_MK}" -o "${HOME_PATH}/include/target.mk"
-gitsvn https://github.com/281677160/common/tree/main/auto-scripts ${HOME_PATH}/package/auto-scripts
+gitsvn https://github.com/Namia-R1/common/tree/main/auto-scripts ${HOME_PATH}/package/auto-scripts
 if ! grep -q "auto-scripts" "${HOME_PATH}/Config.in"; then
   echo 'source "package/auto-scripts/Config.in"' >> ${HOME_PATH}/Config.in
 fi
@@ -307,7 +307,7 @@ if [[ -n "${BENDI_VERSION}" ]]; then
 fi
 
 # 添加自定义插件源
-echo "src-git danshui https://github.com/281677160/openwrt-package.git;$SOURCE" >> feeds.conf.default
+echo "src-git danshui https://github.com/Namia-R1/openwrt-package.git;$SOURCE" >> feeds.conf.default
 ./scripts/feeds update -a > /dev/null 2>&1
  
  z="*luci-theme-argon*,*luci-app-argon-config*,*luci-theme-Butterfly*,*luci-theme-netgear*,*luci-theme-atmaterial*, \
@@ -343,8 +343,8 @@ source ${HOME_PATH}/build/common/Share/tproxy/nft_tproxy.sh
 
 # 降低luci-app-ssr-plus的shadowsocks-rust版本
 if [[ "${REPO_BRANCH}" == *"18.06"* ]] || [[ "${REPO_BRANCH}" == *"19.07"* ]] || [[ "${REPO_BRANCH}" == *"21.02"* ]] || [[ "${REPO_BRANCH}" == *"22.03"* ]]; then
-   gitsvn https://github.com/281677160/common/blob/main/Share/shadowsocks-rust/Makefile ${HOME_PATH}/feeds/danshui/luci-app-ssr-plus/shadowsocks-rust/Makefile
-   gitsvn https://github.com/281677160/common/blob/main/Share/shadowsocks-rust/Makefile ${HOME_PATH}/feeds/danshui/relevance/passwall-packages/shadowsocks-rust/Makefile
+   gitsvn https://github.com/Namia-R1/common/blob/main/Share/shadowsocks-rust/Makefile ${HOME_PATH}/feeds/danshui/luci-app-ssr-plus/shadowsocks-rust/Makefile
+   gitsvn https://github.com/Namia-R1/common/blob/main/Share/shadowsocks-rust/Makefile ${HOME_PATH}/feeds/danshui/relevance/passwall-packages/shadowsocks-rust/Makefile
 fi
 
 if [[ ! -d "${HOME_PATH}/package/network/config/firewall4" ]]; then
@@ -357,7 +357,7 @@ if [[ ! -d "${HOME_PATH}/feeds/packages/lang/rust" ]]; then
 fi
 
 if [[ ! -d "${HOME_PATH}/feeds/packages/devel/packr" ]]; then
-  gitsvn https://github.com/281677160/common/tree/main/Share/packr ${HOME_PATH}/feeds/packages/devel/packr
+  gitsvn https://github.com/Namia-R1/common/tree/main/Share/packr ${HOME_PATH}/feeds/packages/devel/packr
 fi
 
 
@@ -385,12 +385,12 @@ A_PATH="$HOME_PATH/package"
 C_PATH="$HOME_PATH/feeds/luci/modules/luci-mod-system/root/usr/share/luci/menu.d/luci-mod-system.json"
 echo "LUCI_BANBEN=$C_PATH" >> $GITHUB_ENV
 if [[ -f "${C_PATH}" ]]; then
-  gitsvn https://github.com/281677160/openwrt-package/tree/Theme2 ${HOME_PATH}/package/Luci_theme
+  gitsvn https://github.com/Namia-R1/openwrt-package/tree/Theme2 ${HOME_PATH}/package/Luci_theme
 else
-  gitsvn https://github.com/281677160/openwrt-package/tree/Theme1 ${HOME_PATH}/package/Luci_theme
+  gitsvn https://github.com/Namia-R1/openwrt-package/tree/Theme1 ${HOME_PATH}/package/Luci_theme
 fi
 if [[ -z "$(find "$A_PATH" -type d -name "default-settings" -print)" ]] && [[ -f "$C_PATH" ]]; then
-  gitsvn https://github.com/281677160/common/tree/main/Share/default-settings ${HOME_PATH}/package/default-settings
+  gitsvn https://github.com/Namia-R1/common/tree/main/Share/default-settings ${HOME_PATH}/package/default-settings
   if grep -q "libustream-wolfssl" "${HOME_PATH}/include/target.mk"; then
     sed -i 's?libustream-wolfssl?libustream-openssl?g' "${HOME_PATH}/include/target.mk"
   fi
@@ -404,7 +404,7 @@ if [[ -z "$(find "$A_PATH" -type d -name "default-settings" -print)" ]] && [[ -f
     sed -i 's?DEFAULT_PACKAGES:=?DEFAULT_PACKAGES:=default-settings luci luci-compat luci-lib-base luci-lib-ipkg ?g' "${HOME_PATH}/include/target.mk"
   fi
 elif [[ -z "$(find "$A_PATH" -type d -name "default-settings" -print)" ]] && [[ ! -f "$C_PATH" ]]; then
-  gitsvn https://github.com/281677160/common/tree/main/Share/default-setting ${HOME_PATH}/package/default-settings
+  gitsvn https://github.com/Namia-R1/common/tree/main/Share/default-setting ${HOME_PATH}/package/default-settings
   if grep -q "libustream-wolfssl" "${HOME_PATH}/include/target.mk"; then
     sed -i 's?libustream-wolfssl?libustream-openssl?g' "${HOME_PATH}/include/target.mk"
   fi
@@ -553,7 +553,7 @@ if [[ "${REPO_BRANCH}" == *"23.05"* ]]; then
    gitsvn https://github.com/fw876/helloworld/blob/d6bc31754ac228422ee6f03a692568f7dcdd08c3/shadowsocks-rust/Makefile ${HOME_PATH}/feeds/danshui/relevance/passwall-packages/shadowsocks-rust/Makefile
 fi
 if [[ "${REPO_BRANCH}" =~ (main|master|openwrt-24.10) ]]; then
-  gitsvn https://github.com/281677160/common/blob/main/Share/luci-app-nginx-pingos/Makefile ${HOME_PATH}/feeds/danshui/luci-app-nginx-pingos/Makefile
+  gitsvn https://github.com/Namia-R1/common/blob/main/Share/luci-app-nginx-pingos/Makefile ${HOME_PATH}/feeds/danshui/luci-app-nginx-pingos/Makefile
 fi
 }
 
@@ -948,7 +948,7 @@ CONFIG_PACKAGE_kmod-fs-vfat=y
 CONFIG_PACKAGE_kmod-fuse=y
 # CONFIG_PACKAGE_kmod-fs-ntfs is not set
 ' >> ${HOME_PATH}/.config
-gitsvn https://github.com/281677160/common/blob/main/Share/block/10-mount ${HOME_PATH}/files/etc/hotplug.d/block/10-mount
+gitsvn https://github.com/Namia-R1/common/blob/main/Share/block/10-mount ${HOME_PATH}/files/etc/hotplug.d/block/10-mount
 fi
 
 if [[ "${Disable_autosamba}" == "1" ]]; then
@@ -1110,7 +1110,7 @@ fi
 if [[ `grep -c "CONFIG_PACKAGE_luci-theme-argon=y" ${HOME_PATH}/.config` -eq '1' ]]; then
   pmg="$(echo "$(date +%M)" | sed 's/^.//g')"
   mkdir -p ${HOME_PATH}/files/www/luci-static/argon/background
-  curl -fsSL https://raw.githubusercontent.com/281677160/common/main/Share/argon/jpg/${pmg}.jpg -o ${HOME_PATH}/files/www/luci-static/argon/background/argon.jpg
+  curl -fsSL https://raw.githubusercontent.com/Namia-R1/common/main/Share/argon/jpg/${pmg}.jpg -o ${HOME_PATH}/files/www/luci-static/argon/background/argon.jpg
   if [[ $? -ne 0 ]]; then
     echo "拉取文件错误,请检测网络"
     exit 1
@@ -1404,9 +1404,9 @@ fi
 if [[ ! "${weizhicpu}" == "1" ]] && [[ "${AdGuardHome_Core}" == "1" ]]; then
   echo "正在执行：给adguardhome下载核心"
   rm -rf ${HOME_PATH}/AdGuardHome && rm -rf ${HOME_PATH}/files/usr/bin
-  wget -q https://github.com/281677160/common/releases/download/API/AdGuardHome.api -O AdGuardHome.api
+  wget -q https://github.com/Namia-R1/common/releases/download/API/AdGuardHome.api -O AdGuardHome.api
   if [[ $? -ne 0 ]];then
-    curl -fsSL https://github.com/281677160/common/releases/download/API/AdGuardHome.api -o AdGuardHome.api
+    curl -fsSL https://github.com/Namia-R1/common/releases/download/API/AdGuardHome.api -o AdGuardHome.api
   fi
   latest_ver="$(grep -E 'tag_name' 'AdGuardHome.api' |grep -E 'v[0-9.]+' -o 2>/dev/null)"
   rm -rf AdGuardHome.api
@@ -1522,7 +1522,7 @@ export kernel_repo="ophub/kernel"
 [[ -z "${kernel_usage}" ]] && export kernel_usage="stable"
 [[ -z "${UPLOAD_WETRANSFER}" ]] && export UPLOAD_WETRANSFER="true"
 if [[ -z "${amlogic_kernel}" ]]; then
-  curl -fsSL https://github.com/281677160/common/releases/download/API/${kernel_usage}.api -o ${HOME_PATH}/${kernel_usage}.api
+  curl -fsSL https://github.com/Namia-R1/common/releases/download/API/${kernel_usage}.api -o ${HOME_PATH}/${kernel_usage}.api
   export amlogic_kernel="$(grep -Eo '"name": "[0-9]+\.[0-9]+\.[0-9]+\.tar.gz"' ${HOME_PATH}/${kernel_usage}.api |grep -Eo "[0-9]+\.[0-9]+\.[0-9]+" |awk 'END {print}' |sed s/[[:space:]]//g)"
   [[ -z "${amlogic_kernel}" ]] && export amlogic_kernel="5.10.170"
 fi
